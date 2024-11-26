@@ -1,8 +1,16 @@
 <?php
+
 session_start();
 require './../config/db.php';
 
 if (isset($_POST['submit'])) {
+
+
+
+
+require './../config/db.php';
+
+if (isset($_POST['submit'])) { // Menangani form submit
 
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -12,6 +20,7 @@ if (isset($_POST['submit'])) {
 
     if (mysqli_num_rows($user) > 0) {
         $data = mysqli_fetch_assoc($user);
+
 
         // Verifikasi password yang dimasukkan dengan hash yang ada di database
         if (password_verify($password, $data['password'])) {
@@ -40,4 +49,35 @@ if (isset($_POST['submit'])) {
         exit;  // Menghentikan eksekusi setelah pesan
     }
 }
+
+        // Memeriksa apakah password yang dimasukkan sesuai dengan yang ada di database
+        if (password_verify($password, $data['password'])) {
+            echo "Selamat datang " . $data['name'];
+            die;
+
+            // Proses otorisasi dan redirect bisa ditambahkan di sini
+        } else {
+            echo "Password salah";
+            die;
+        }
+    } else {
+        echo "Email atau password salah";
+        die;
+    }
+}
+
+        if(isset($_POST['email']) || isset($_POST['password'])) {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+
+            if ($email == 'admin@admin.com' && $password == 'admin') {
+                header('Location: ./../dashboard.php');
+            } else {
+                echo "email atau password salah";
+            }
+        }
+        
+
+
+
 ?>

@@ -1,5 +1,9 @@
 <?php
+
 session_start();
+
+
+
 require './../config/db.php';
 
 if(isset($_POST['submit'])) {
@@ -29,6 +33,7 @@ if(isset($_POST['submit'])) {
                             ('$name','$email','$password','$created_at')");
 
 
+
 $getUserdata = mysqli_query($db_connect,"SELECT name, role FROM users WHERE email = '$email'");
 
 $sesionData = mysqli_fetch_assoc($getUserdata);
@@ -38,3 +43,7 @@ header('location:./../profile.php');
 
 
 }
+
+    echo "registrasi berhasil";
+}
+
